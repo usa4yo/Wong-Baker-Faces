@@ -167,7 +167,7 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
 
                 // set Icon
                 painFaces.setIcon(hurtsWholeLot);
-                contentPane.setBackground(Color.MAGENTA);
+                contentPane.setBackground(Color.ORANGE);
                 
                 break;
                 
