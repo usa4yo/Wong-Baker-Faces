@@ -1,10 +1,8 @@
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +17,7 @@ import javax.swing.JLabel;
  * Due Date     : 2017-04-06
  */
 
-public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
+public class MyWBFPRSGUI_Win1 extends JFrame implements ActionListener{
     
     // Declare constant variable. 
     private static final String NO_HURT = "0";
@@ -29,14 +27,14 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
     private static final String HURTS_WHOLE_LOT = "8";
     private static final String HURTS_WORST = "10";
     
-    private static final int WINDOW_WIDTH = 300;
-    private static final int WINDOW_HEIGHT = 300;
+    private static final int WINDOW_WIDTH = 400;
+    private static final int WINDOW_HEIGHT = 400;
 
     private static final String WINDOW_TITLE = "Wong-Baker Faces Pain Rating Scale";
     
     // Declare Container 
     private Container contentPane;
-    private JLabel painFaces;
+
     
     // Declare JButton
     private JButton noHurtButton;
@@ -46,16 +44,16 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
     private JButton hurtsWholeLotButton;
     private JButton hurtsWorstButton;
     
-    // Declare ImageIcon
-    private ImageIcon noHurt;
-    private ImageIcon hurtsLittleBit;
-    private ImageIcon hurtsLittleMore;
-    private ImageIcon hurtsEvenMore;
-    private ImageIcon hurtsWholeLot;
-    private ImageIcon hurtsWorst;
+    // Declare JPanel
+    private NoHurtPanel noHurtPanel;
+    private HurtsLittleBitPanel hurtsLittleBitPanel;
+    private HurtsLittleMorePanel hurtsLittleMorePanel;
+    private HurtsEvenMorePanel hurtsEvenMorePanel;
+    private HurtsWholeLotPanel hurtsWholeLotPanel;
+    private HurtsWorstPanel hurtsWorstPanel;
     
 
-    public MyWBFPRSGUI_Window() {
+    public MyWBFPRSGUI_Win1() {
         // Calling  parents constructor...
         super();
         
@@ -77,13 +75,13 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
         this.hurtsWholeLotButton = new JButton(HURTS_WHOLE_LOT);
         this.hurtsWorstButton = new JButton(HURTS_WORST);
         
-        // Create object for each ImageIcon       
-        this.noHurt = new ImageIcon("PainFace0.jpg");
-        this.hurtsLittleBit = new ImageIcon ("PainFace2.jpg");
-        this.hurtsLittleMore = new ImageIcon ("PainFace4.jpg");
-        this.hurtsEvenMore = new ImageIcon ("PainFace6.jpg");
-        this.hurtsWholeLot = new ImageIcon ("PainFace8.jpg");
-        this.hurtsWorst = new ImageIcon ("PainFace10.jpg");
+        // Create object for each panel        
+        this.noHurtPanel = new NoHurtPanel();
+        this.hurtsLittleBitPanel = new HurtsLittleBitPanel();
+        this.hurtsLittleMorePanel = new HurtsLittleMorePanel();
+        this.hurtsEvenMorePanel = new HurtsEvenMorePanel();
+        this.hurtsWholeLotPanel = new HurtsWholeLotPanel();
+        this.hurtsWorstPanel = new HurtsWorstPanel();
         
         // Add button to Action Listener
         this.noHurtButton.addActionListener(this);
@@ -101,10 +99,22 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
         this.contentPane.add(hurtsWholeLotButton);
         this.contentPane.add(hurtsWorstButton);
 
-        painFaces = new JLabel();
-        contentPane.add(painFaces);
-        painFaces.setHorizontalAlignment(JLabel.CENTER);
-        painFaces.setVerticalAlignment(JLabel.CENTER);
+        // Add panel to the contentPane        
+        this.contentPane.add(noHurtPanel);
+        this.contentPane.add(hurtsLittleBitPanel);
+        this.contentPane.add(hurtsLittleMorePanel);
+        this.contentPane.add(hurtsEvenMorePanel);
+        this.contentPane.add(hurtsWholeLotPanel);        
+        this.contentPane.add(hurtsWorstPanel);        
+
+        // Initially make all panel invisible        
+        this.noHurtPanel.setVisible(false);
+        this.hurtsLittleBitPanel.setVisible(false);
+        this.hurtsLittleMorePanel.setVisible(false);
+        this.hurtsEvenMorePanel.setVisible(false);        
+        this.hurtsWholeLotPanel.setVisible(false);
+        this.hurtsWorstPanel.setVisible(false);        
+        
         
     }   // Ending bracket of MyWBFPRSGUI_Window constructor
 
@@ -119,15 +129,21 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
         this.hurtsWholeLotButton.setVisible(true);
         this.hurtsWorstButton.setVisible(true);
 
+        // Turn off all panels
+        this.noHurtPanel.setVisible(false);
+        this.hurtsLittleBitPanel.setVisible(false);            
+        this.hurtsLittleMorePanel.setVisible(false);
+        this.hurtsEvenMorePanel.setVisible(false);
+        this.hurtsWholeLotPanel.setVisible(false);
+        this.hurtsWorstPanel.setVisible(false); 
         
         switch (command) {
             case NO_HURT:
                 // Turn on/off the button            
                 this.noHurtButton.setVisible(false);
 
-                // set Icon
-                painFaces.setIcon(noHurt);
-                contentPane.setBackground(Color.WHITE);
+                // Turn on/off the panel
+                this.noHurtPanel.setVisible(true);
 
                 break;
                 
@@ -135,9 +151,8 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
                 // Turn on/off the buttons            
                 this.hurtsLittleBitButton.setVisible(false);
 
-                // set Icon
-                painFaces.setIcon(hurtsLittleBit);
-                contentPane.setBackground(Color.YELLOW);
+                // Turn on/off the panels            
+                this.hurtsLittleBitPanel.setVisible(true);
                 
                 break;
                 
@@ -145,9 +160,8 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
                 // Turn on/off the buttons            
                 this.hurtsLittleMoreButton.setVisible(false);
 
-                // set Icon
-                painFaces.setIcon(hurtsLittleMore);
-                contentPane.setBackground(Color.ORANGE);
+                // Turn on/off the panels
+                this.hurtsLittleMorePanel.setVisible(true);
                 
                 break;
                 
@@ -155,9 +169,8 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
                 // Turn on/off the buttons
                 this.hurtsEvenMoreButton.setVisible(false);
 
-                // set Icon
-                painFaces.setIcon(hurtsEvenMore);
-                contentPane.setBackground(Color.PINK);
+                // Turn on/off the panels
+                this.hurtsEvenMorePanel.setVisible(true);
                 
                 break;
                 
@@ -165,9 +178,8 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
                 // Turn on/off the buttons
                 this.hurtsWholeLotButton.setVisible(false);
 
-                // set Icon
-                painFaces.setIcon(hurtsWholeLot);
-                contentPane.setBackground(Color.MAGENTA);
+                // Turn on/off the panels
+                this.hurtsWholeLotPanel.setVisible(true);
                 
                 break;
                 
@@ -175,9 +187,8 @@ public class MyWBFPRSGUI_Window extends JFrame implements ActionListener{
                 // Turn on/off the buttons
                 this.hurtsWorstButton.setVisible(false);
 
-                // set Icon
-                painFaces.setIcon(hurtsWorst);
-                contentPane.setBackground(Color.RED);
+                // Turn on/off the panels
+                this.hurtsWorstPanel.setVisible(true);
                 
                 break;
             
